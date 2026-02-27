@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,12 +22,12 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="YP Black (iOS)"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="dep-FW-7Op" secondAttribute="bottom" id="Aku-vF-Eqy"/>
-                            <constraint firstItem="dep-FW-7Op" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="O2K-oY-9sG"/>
-                            <constraint firstItem="dep-FW-7Op" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eXf-OY-sZN"/>
-                            <constraint firstItem="dep-FW-7Op" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="sQd-NH-peu"/>
+                            <constraint firstItem="dep-FW-7Op" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Kn1-R8-NYN"/>
+                            <constraint firstItem="dep-FW-7Op" firstAttribute="bottom" secondItem="Ze5-6b-2t3" secondAttribute="bottom" id="SDi-LK-Kha"/>
+                            <constraint firstAttribute="top" secondItem="dep-FW-7Op" secondAttribute="top" id="X4z-gK-Qia"/>
+                            <constraint firstAttribute="trailing" secondItem="dep-FW-7Op" secondAttribute="trailing" id="hnf-Tf-Ww4"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -37,5 +38,8 @@
     </scenes>
     <resources>
         <image name="LaunchScreen" width="1125" height="2436"/>
+        <namedColor name="YP Black (iOS)">
+            <color red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
