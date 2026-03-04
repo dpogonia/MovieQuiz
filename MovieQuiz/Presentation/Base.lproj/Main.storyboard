@@ -31,7 +31,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vUC-yK-eJO">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="23.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вопрос" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZF-I8-FhD" userLabel="Question Title Label">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вопрос:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZF-I8-FhD" userLabel="Question Title Label">
                                                 <rect key="frame" x="0.0" y="0.0" width="338" height="23.5"/>
                                                 <color key="backgroundColor" name="YP Black (iOS)"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
@@ -62,7 +62,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="bPb-aV-mzE">
                                         <rect key="frame" x="0.0" y="662" width="374" height="60"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k1v-5O-qUu" userLabel="No button">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4d-kV-A8j" userLabel="No button">
                                                 <rect key="frame" x="0.0" y="0.0" width="177" height="60"/>
                                                 <color key="backgroundColor" name="YP White (iOS)"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
@@ -75,8 +75,11 @@
                                                         <integer key="value" value="15"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="noButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="YB2-8p-u4a"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4d-kV-A8j" userLabel="Yes button">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k1v-5O-qUu" userLabel="Yes button">
                                                 <rect key="frame" x="197" y="0.0" width="177" height="60"/>
                                                 <color key="backgroundColor" name="YP White (iOS)"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
@@ -89,6 +92,9 @@
                                                         <integer key="value" value="15"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="yesButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0fo-fG-8h4"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -107,6 +113,11 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="qXp-mT-nL4" secondAttribute="bottom" id="zcH-91-a2V"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="counterLabel" destination="5fe-3F-ASz" id="Nvp-V1-pCT"/>
+                        <outlet property="imageView" destination="RJM-xj-hiD" id="lzb-h4-5XD"/>
+                        <outlet property="textLabel" destination="Ngv-Fv-xdN" id="XQ5-uq-6Bj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
