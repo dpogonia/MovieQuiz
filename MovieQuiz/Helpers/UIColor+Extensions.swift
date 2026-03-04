@@ -2,27 +2,27 @@ import UIKit
 
 extension UIColor {
     static var ypBackground: UIColor {
-        UIColor(named: "YP Background (iOS)")!
+        UIColor(resource: .ypBackgroundIOS)
     }
 
     static var ypBlack: UIColor {
-        UIColor(named: "YP Black (iOS)")!
+        UIColor(resource: .ypBlackIOS)
     }
 
     static var ypGray: UIColor {
-        UIColor(named: "YP Gray (iOS)")!
+        UIColor(resource: .ypGrayIOS)
     }
 
     static var ypGreen: UIColor {
-        UIColor(named: "YP Green (iOS)")!
+        UIColor(resource: .ypGreenIOS)
     }
 
     static var ypRed: UIColor {
-        UIColor(named: "YP Red (iOS)")!
+        UIColor(resource: .ypRedIOS)
     }
 
     static var ypWhite: UIColor {
-        UIColor(named: "YP White (iOS)")!
+        UIColor(resource: .ypWhiteIOS)
     }
 }
 
