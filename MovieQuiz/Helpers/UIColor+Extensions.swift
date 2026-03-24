@@ -25,4 +25,3 @@ extension UIColor {
         UIColor(resource: .ypWhiteIOS)
     }
 }
-
