@@ -19,6 +19,6 @@ final class ResultAlertPresenter {
         }
         
         alert.addAction(action)
-        vc.present(alert, animated: true, completion: nil)
+        vc.present(alert, animated: true)
     }
 }

@@ -13,11 +13,10 @@ extension MovieQuizViewController: QuestionFactoryDelegate {
         guard let question = question else { return }
         
         currentQuestion = question
-        let viewModel = convertToVM(model: question)
+        let viewModel = convertToView(model: question)
         
         DispatchQueue.main.async { [weak self] in
-            self?.show(quiz: viewModel)
+            self?.show(quizView: viewModel)
         }
     }
 }
-

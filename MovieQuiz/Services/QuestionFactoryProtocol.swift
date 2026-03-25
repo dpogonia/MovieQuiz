@@ -10,5 +10,5 @@ import Foundation
 protocol QuestionFactoryProtocol {
     var questions: [QuizQuestion] { get set }
     
-    func requestNextRandomQuestion()
+    func requestNextQuestion()
 }
