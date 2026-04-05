@@ -18,5 +18,6 @@ extension MovieQuizViewController: QuestionFactoryDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.show(quizView: viewModel)
         }
+        setButtonsEnabled(true)
     }
 }

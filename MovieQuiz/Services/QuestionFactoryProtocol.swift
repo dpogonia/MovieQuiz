@@ -8,7 +8,7 @@
 import Foundation
 
 protocol QuestionFactoryProtocol {
-    var questions: [QuizQuestion] { get set }
-    
+    var movies: [MostPopularMovie] { get set }
     func requestNextQuestion()
+    func loadData()
 }
