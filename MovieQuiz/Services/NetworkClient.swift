@@ -7,7 +7,12 @@
 
 import Foundation
 
-struct NetworkClient {
+protocol NetworkRoutingProtocol {
+    
+    func fetch(url: URL, handler: @escaping (Result<Data, Error>) -> Void)
+}
+
+struct NetworkClient: NetworkRoutingProtocol {
     
     enum NetworkError: Error {
         case transport(Error)
@@ -45,5 +50,21 @@ struct NetworkClient {
             handler(.success(data))
         }
         task.resume()
+    }
+}
+
+extension NetworkClient.NetworkError: LocalizedError {
+    
+    var errorDescription: String? {
+        switch self {
+        case .transport:
+            return "Не удалось выполнить запрос. Проверьте подключение к интернету."
+        case .notHTTPResponse:
+            return "Некорректный ответ сервера."
+        case .httpStatusCode(let code):
+            return "Сервер вернул ошибку (код \(code))."
+        case .noData:
+            return "Данные не получены."
+        }
     }
 }

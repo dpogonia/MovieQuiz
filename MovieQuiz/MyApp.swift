@@ -9,6 +9,7 @@ import UIKit
 
 @main
 class MyApp {
+    
     static func main() {
         UIApplicationMain(
             CommandLine.argc,
