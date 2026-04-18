@@ -7,7 +7,8 @@
 
 import UIKit
 
-final class ResultAlertPresenter {
+final class AlertPresenter {
+    
     func show(in vc: UIViewController, model: AlertModel) {
         let alert = UIAlertController(
             title: model.title,
@@ -15,7 +16,11 @@ final class ResultAlertPresenter {
             preferredStyle: .alert)
         
         let action = UIAlertAction(title: model.buttonText, style: .default) { _ in
-            model.completion()
+            // Важно: не выполнять completion синхронно внутри обработчика UIAlertAction.
+            // Иначе dismissal/подсветка кнопки могут "залипать", если completion трогает UI/стартует загрузку.
+            DispatchQueue.main.async {
+                model.completion()
+            }
         }
         
         alert.addAction(action)

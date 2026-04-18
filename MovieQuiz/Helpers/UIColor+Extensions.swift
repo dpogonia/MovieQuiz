@@ -1,6 +1,7 @@
 import UIKit
 
 extension UIColor {
+    
     static var ypBackground: UIColor {
         UIColor(resource: .ypBackgroundIOS)
     }

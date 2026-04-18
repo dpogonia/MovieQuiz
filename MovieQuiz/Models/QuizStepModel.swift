@@ -5,10 +5,11 @@
 //  Created by Dmitrii Pogonia on 18.03.2026.
 //
 
-import UIKit
+import Foundation
 
-struct QuizStepViewModel {
-    let image: UIImage
+struct QuizStepModel {
+    
+    let image: Data
     let question: String
     let questionNumber: String
 }
