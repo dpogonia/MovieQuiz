@@ -16,7 +16,11 @@ final class AlertPresenter {
             preferredStyle: .alert)
         
         let action = UIAlertAction(title: model.buttonText, style: .default) { _ in
-            model.completion()
+            // Важно: не выполнять completion синхронно внутри обработчика UIAlertAction.
+            // Иначе dismissal/подсветка кнопки могут "залипать", если completion трогает UI/стартует загрузку.
+            DispatchQueue.main.async {
+                model.completion()
+            }
         }
         
         alert.addAction(action)

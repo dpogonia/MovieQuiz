@@ -9,8 +9,8 @@ import UIKit
 
 protocol MovieQuizViewControllerProtocol: AnyObject {
     
-    func show(quiz step: QuizStepViewModel)
-    func show(quiz result: QuizResultsViewModel)
+    func show(quiz step: QuizStepModel)
+    func show(quiz result: QuizResultModel)
     
     func setButtonsEnabled(_ isEnabled: Bool)
     func highlightImageBorder(isCorrectAnswer: Bool)

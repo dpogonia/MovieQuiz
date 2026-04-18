@@ -98,16 +98,14 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     func proceedToNextQuestionOrResults() {
         
         if isLastQuestion() {
-            let viewModel = QuizResultsViewModel(
+            let viewModel = QuizResultModel(
                 title: "Этот раунд окончен!",
                 text: "Ваш результат: \(correctAnswers)/\(questionsAmount)",
                 buttonText: "Сыграть ещё раз"
             )
             viewController?.show(quiz: viewModel)
         } else {
-            
             switchToNextQuestion()
-            viewController?.showLoadingIndicator()
             questionFactory?.requestNextQuestion()
         }
     }
@@ -163,9 +161,9 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         ].joined(separator: "\n")
     }
     
-    func convert(model: QuizQuestion) -> QuizStepViewModel {
+    func convert(model: QuizQuestion) -> QuizStepModel {
         
-        let viewModel = QuizStepViewModel(
+        let viewModel = QuizStepModel(
             image: model.image,
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)"

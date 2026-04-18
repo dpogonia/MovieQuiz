@@ -4,67 +4,24 @@
 //
 //  Created by Dmitrii Pogonia on 12.04.2026.
 //
-
 import XCTest
 @testable import MovieQuiz
 
-struct StubNetworkClient: NetworkRoutingProtocol {
-    
-    enum TestError: Error { // тестовая ошибка
-        case test
-    }
-    
-    let emulateError: Bool // этот параметр нужен, чтобы заглушка эмулировала либо ошибку сети, либо успешный ответ
-    
-    func fetch(url: URL, handler: @escaping (Result<Data, Error>) -> Void) {
-        if emulateError {
-            handler(.failure(TestError.test))
-        } else {
-            handler(.success(expectedResponse))
-        }
-    }
-    
-    private var expectedResponse: Data {
-        """
-        {
-           "errorMessage" : "",
-           "items" : [
-              {
-                 "crew" : "Dan Trachtenberg (dir.), Amber Midthunder, Dakota Beavers",
-                 "fullTitle" : "Prey (2022)",
-                 "id" : "tt11866324",
-                 "imDbRating" : "7.2",
-                 "imDbRatingCount" : "93332",
-                 "image" : "https://m.media-amazon.com/images/M/MV5BMDBlMDYxMDktOTUxMS00MjcxLWE2YjQtNjNhMjNmN2Y3ZDA1XkEyXkFqcGdeQXVyMTM1MTE1NDMx._V1_Ratio0.6716_AL_.jpg",
-                 "rank" : "1",
-                 "rankUpDown" : "+23",
-                 "title" : "Prey",
-                 "year" : "2022"
-              },
-              {
-                 "crew" : "Anthony Russo (dir.), Ryan Gosling, Chris Evans",
-                 "fullTitle" : "The Gray Man (2022)",
-                 "id" : "tt1649418",
-                 "imDbRating" : "6.5",
-                 "imDbRatingCount" : "132890",
-                 "image" : "https://m.media-amazon.com/images/M/MV5BOWY4MmFiY2QtMzE1YS00NTg1LWIwOTQtYTI4ZGUzNWIxNTVmXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_Ratio0.6716_AL_.jpg",
-                 "rank" : "2",
-                 "rankUpDown" : "-1",
-                 "title" : "The Gray Man",
-                 "year" : "2022"
-              }
-            ]
-          }
-        """.data(using: .utf8) ?? Data()
-    }
-}
-
 class MoviesLoaderTests: XCTestCase {
+    
+    private var stubNetworkClientMock: StubNetworkClientMock!
+    private var loader: MoviesLoader!
+    
+    override func setUp() {
+        super.setUp()
+        stubNetworkClientMock = StubNetworkClientMock(emulateError: false)
+        loader = MoviesLoader(networkClient: stubNetworkClientMock)
+    }
     
     func testSuccessLoading() throws {
         // Given
-        let stubNetworkClient = StubNetworkClient(emulateError: false) // говорим, что не хотим эмулировать ошибку
-        let loader = MoviesLoader(networkClient: stubNetworkClient)
+        stubNetworkClientMock = StubNetworkClientMock(emulateError: false) // говорим, что не хотим эмулировать ошибку
+        loader = MoviesLoader(networkClient: stubNetworkClientMock)
         
         // When
         let expectation = expectation(description: "Loading expectation")
@@ -80,14 +37,14 @@ class MoviesLoaderTests: XCTestCase {
                 XCTFail("Unexpected failure")
             }
         }
-        
         waitForExpectations(timeout: 1)
     }
     
     func testFailureLoading() throws {
         // Given
-        let stubNetworkClient = StubNetworkClient(emulateError: true)
-        let loader = MoviesLoader(networkClient: stubNetworkClient)
+        stubNetworkClientMock = StubNetworkClientMock(emulateError: true)
+        loader = MoviesLoader(networkClient: stubNetworkClientMock)
+        
         // When
         let expectation = expectation(description: "Loading expectation")
         
@@ -101,10 +58,8 @@ class MoviesLoaderTests: XCTestCase {
                 XCTFail("Unexpected failure")
             }
         }
-
         waitForExpectations(timeout: 1)
     }
-    
 }
 
 
