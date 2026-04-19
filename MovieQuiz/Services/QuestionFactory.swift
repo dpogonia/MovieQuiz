@@ -38,6 +38,8 @@ final class QuestionFactory: QuestionFactoryProtocol {
     internal var movies: [MostPopularMovie] = []
     
     private var preloadedFrames: [PreloadedFrame] = []
+    /// Индексы кадров, уже показанных в текущем раунде (10 вопросов без повторов).
+    private var usedFrameIndicesInRound: Set<Int> = []
     private var didFinishPreload = false
     private var timeoutWorkItem: DispatchWorkItem?
     private let stateLock = NSLock()
@@ -55,14 +57,20 @@ final class QuestionFactory: QuestionFactoryProtocol {
     func requestNextQuestion() {
         DispatchQueue.global().async { [weak self] in
             guard let self else { return }
-            let frames = self.stateLock.withLock { self.preloadedFrames }
-            guard !frames.isEmpty else {
+            let frame: PreloadedFrame? = self.stateLock.withLock {
+                let frames = self.preloadedFrames
+                guard !frames.isEmpty else { return nil }
+                let available = (0..<frames.count).filter { !self.usedFrameIndicesInRound.contains($0) }
+                guard let index = available.randomElement() else { return nil }
+                self.usedFrameIndicesInRound.insert(index)
+                return frames[index]
+            }
+            guard let frame else {
                 DispatchQueue.main.async {
                     self.delegate?.didFailToLoadPoster(with: PosterLoadError.noMovies)
                 }
                 return
             }
-            let frame = frames.randomElement()!
             let randomNum = Int.random(in: 6...9)
             let isGreaterQuestion = Bool.random()
             let text = "Рейтинг этого фильма \(isGreaterQuestion ? "больше" : "меньше") чем \(randomNum)?"
@@ -81,6 +89,7 @@ final class QuestionFactory: QuestionFactoryProtocol {
             cancelPreloadTimeout()
             didFinishPreload = false
             preloadedFrames = []
+            usedFrameIndicesInRound = []
             movies = []
         }
         
@@ -284,12 +293,19 @@ final class QuestionFactory: QuestionFactoryProtocol {
             ("Tesla", 5.1),
             ("Vivarium", 5.8)
         ]
-        return items.compactMap { item in
-            guard let image = UIImage(named: item.imageName) else { return nil }
+        var result: [PreloadedFrame] = []
+        var seenAssetNames = Set<String>()
+        var seenImageData = Set<Data>()
+        for item in items {
+            guard result.count < targetPosterCount else { break }
+            guard seenAssetNames.insert(item.imageName).inserted else { continue }
+            guard let image = UIImage(named: item.imageName) else { continue }
             let data = image.jpegData(compressionQuality: 1.0) ?? image.pngData() ?? Data()
-            guard !data.isEmpty else { return nil }
-            return PreloadedFrame(imageData: data, rating: item.rating)
+            guard !data.isEmpty else { continue }
+            guard seenImageData.insert(data).inserted else { continue }
+            result.append(PreloadedFrame(imageData: data, rating: item.rating))
         }
+        return result
     }
 }
 
